@@ -4,15 +4,16 @@ title Windows Utility Tool
 
 :menu
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
 echo Choose an option:
 echo 1 - Format A Disk
 echo 2 - Check for Corrupt or Missing System Files
 echo 3 - Check for Disk Errors
-echo 4 - Microsoft Defender Offline Scan
+echo 4 - Microsoft Windows Defender Scan
 echo 5 - Repair Windows Defender
 echo 6 - Restart PC
 echo 7 - Exit
@@ -38,10 +39,10 @@ else (
 
 :formatProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 REM List all disks using diskpart
 echo Listing available disks using diskpart:
 echo list disk > list_disks.txt
@@ -74,10 +75,10 @@ set /p diskName="Enter a name for the new disk: "
 echo ========================================================================================
 echo.
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Formatting disk %diskNumber%...
 echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
@@ -106,10 +107,10 @@ goto menu
 
 :sfcProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Choose your preferred option:
 echo 1 - Scan and repair using System File Checker (SFC) Tool only
@@ -131,10 +132,10 @@ else (
 
 :sfcProcessOnly
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Scanning and repairing using System File Checker (SFC) Tool...
 echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
@@ -149,10 +150,10 @@ goto menu
 
 :dismProcessOnly
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 set /p answer="Is your Windows Update Client working properly? (Y/N): "
 if /i not !answer! == Y (
@@ -188,10 +189,10 @@ else if /i !answer! == Y (
 
 :sfcAndDismProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Scanning and repairing using DISM and SFC...
 echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
@@ -207,10 +208,10 @@ goto menu
 
 :chkdskProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Choose your preferred option:
 echo 1 - Scan only
@@ -234,10 +235,10 @@ else (
 
 :chkdskScanProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Scanning using Check Disk (CHKDSK) Tool...
 echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
@@ -252,10 +253,10 @@ goto menu
 
 :chkdskRepairProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Scanning and repairing using Check Disk (CHKDSK) Tool...
 echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
@@ -270,10 +271,10 @@ goto menu
 
 :chkdskFixProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 echo Scanning and fixing using Check Disk (CHKDSK) Tool...
 echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
@@ -288,10 +289,10 @@ goto menu
 
 :chkdskRepairAndFixProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
 set /p answer="Dismount disk before scanning? (Y/N): "
 if /i not !answer! == Y (
@@ -323,36 +324,100 @@ else if /i !answer! == Y (
 
 :MDOSProcess
 cls
-echo ===========================================
-echo     A Simple Windows 10/11 Utility Tool
-echo          written in batch script
-echo ===========================================
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
 echo.
-echo Make sure you have saved all your work before continuing.
-set /p answer="Do you want continue? This will restart your PC and perform a scan. (Y/N): "
-if /i not !answer! == Y (
-    echo.
-    echo Microsoft Defender Offline Scan canceled.
-    echo Press any key to go back to the main menu.
-    pause > nul
-    goto menu
-) else if /i !answer! == Y (
-    echo.
-    echo Scanning using Microsoft Defender Offline Scan...
-    echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
-    echo ========================================================================================
-    "%ProgramFiles%\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3
-    echo ========================================================================================
-    echo.
-    echo Scanning completed successfully.
-    echo Press any key to go back to the main menu.
-    pause > nul
-    goto menu
-) else (
+echo Choose your preferred option:
+echo 1 - Quick Scan
+echo 2 - Full Scan
+echo 3 - Go back to the main menu
+echo.
+set /P "choice=Enter your choice: "
+
+if %choice%==1 ( goto MDOSQuickScanProcess )
+else if %choice%==2 ( goto MDOSFullScanProcess )
+else if %choice%==3 ( goto menu )
+else (
     echo Invalid choice. Please try again.
     timeout /t 2 > nul
     goto MDOSProcess
 )
+
+:MDOSQuickScanProcess
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Please exit all programs before scanning.
+pause
+echo.
+echo Scanning using Microsoft Windows Defender...
+echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
+echo ========================================================================================
+"%ProgramFiles%\Windows Defender\MpCmdRun.exe" -Scan -ScanType 1
+echo ========================================================================================
+echo.
+echo Scanning completed successfully.
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
+:MDOSFullScanProcess
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Please exit all programs before scanning.
+pause
+echo.
+echo Scanning using Microsoft Windows Defender...
+echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
+echo ========================================================================================
+"%ProgramFiles%\Windows Defender\MpCmdRun.exe" -Scan -ScanType 2
+echo ========================================================================================
+echo.
+echo Scanning completed successfully.
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
+:WinDefRepairProcess
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Attempting to repair Microsoft Windows Defender...
+echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
+REM Reinstalls and Resets Windows Defender
+echo ========================================================================================
+Powershell -ExecutionPolicy Bypass -Command "Get-AppxPackage Microsoft.SecHealthUI -AllUsers | Reset-AppxPackage"
+echo Repairing completed successfully. If the problem still persists, try to reboot your PC.
+echo ========================================================================================
+echo.
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
+:restartProcess
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Please save all your work before restarting your PC.
+echo.
+echo Restarting your PC...
+pause
+shutdown /r /t 0
 
 
 
