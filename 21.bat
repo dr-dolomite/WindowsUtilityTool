@@ -1,12 +1,13 @@
 @echo off
 setlocal enabledelayedexpansion
+color 0A
 title Windows Utility Tool
 
 REM function for checking if the script is running as administrator
 :isAdmin
 net session >nul 2>&1
 if %errorLevel% == 0 (
-    goto menu
+    goto agreement
 ) else (
     echo.
     echo This script must be run as Administrator.
@@ -32,8 +33,7 @@ if /i not !agree! == Y (
     echo Exiting...
     timeout /t 2 > nul
     exit
-)
-else if /i !agree! == Y (
+) else (
     goto menu
 )
 
@@ -51,23 +51,30 @@ echo 2 - Check for Corrupt or Missing System Files
 echo 3 - Check for Disk Errors
 echo 4 - Microsoft Windows Defender Scan
 echo 5 - Repair Windows Defender
-echo 6 - Restart PC
-echo 7 - Exit
+echo 6 - Create Restore Point
+echo 7 - cURL Downloader
+echo 8 - Windows11 ISO Downloader
+echo 9 - Restart PC
+echo 10 - Restart in Safe Mode
+echo E - Exit
 echo.
 set /P "choice=Enter your choice: "
 
-if %choice%==1 goto formatProcess
-if %choice%==2 goto sfcProcess
-if %choice%==3 goto chkdskProcess
-if %choice%==4 goto MDOSProcess
-if %choice%==5 goto WinDefRepairProcess
-if %choice%==6 goto restartProcess
-if %choice%==7 (
+if /i "%choice%"=="1" goto formatProcess
+if /i "%choice%"=="2" goto sfcProcess
+if /i "%choice%"=="3" goto chkdskProcess
+if /i "%choice%"=="4" goto MDOSProcess
+if /i "%choice%"=="5" goto WinDefRepairProcess
+if /i "%choice%"=="6" goto createRestorePointMenu
+if /i "%choice%"=="7" goto curlDownloader
+if /i "%choice%"=="8" goto isoDownloader
+if /i "%choice%"=="9" goto restartProcess
+if /i "%choice%"=="10" goto safeModeProcessMenu
+if /i "%choice%"=="E" (
     echo Exiting...
     timeout /t 2 > nul
     exit
-)
-else (
+) else (
     echo Invalid choice. Please try again.
     timeout /t 2 > nul
     goto menu
@@ -466,6 +473,123 @@ echo Press any key to go back to the main menu.
 pause > nul
 goto menu
 
+REM function for the menu of creating a restore point and system restore
+:createRestorePointMenu
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Choose your preferred option:
+echo 1 - Create a restore point
+echo 2 - System Restore
+echo 3 - Go back to the main menu
+echo.
+set /P "choice=Enter your choice: "
+if %choice%==1 goto createRestorePoint
+if %choice%==2 goto systemRestorePoint
+if %choice%==3 goto menu
+
+REM function for creating a restore point
+:createRestorePoint
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+set /p restorePointName="Enter a name for the restore point: "
+echo.
+echo Make sure that your C drive has system protection enabled.
+echo Restore point image might take some time to appear in the System Restore window.
+echo.
+echo Creating a restore point...
+echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
+REM opens powershell window as admin and creates a restore point
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command "Checkpoint-Computer -Description "%restorePointName%" -RestorePointType "MODIFY_SETTINGS"; " ' " -Verb RunAs}"
+echo.
+echo Creating a restore point completed successfully.
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
+REM function for system restore
+:systemRestorePoint
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Opening System Restore Window...
+rstrui.exe
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
+REM function for downloading files from the internet using cURL
+:curlDownloader
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Make sure that you have cURL installed on your PC.
+echo cURL can only download files from download direct links.
+echo.
+set /p url="Enter the URL of the file you want to download: "
+set /p fileName="Enter the name of the file (include file extension): "
+echo.
+echo Downloading %fileName%...
+rem Check if download directory already exists
+if not exist "C:\cURLDownload\" (
+    md C:\cURLDownload > nul
+    echo cURLDownload directory created.
+    echo.
+)
+echo The download folder is located at C:\cURLDownload.
+cd C:\cURLDownload
+echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
+echo ========================================================================================
+curl -o %fileName% %url%
+echo ========================================================================================
+echo.
+echo Downloading %fileName% completed successfully.
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
+REM function for downloading Windows 11 ISO
+:isoDownloader
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Make sure that you have cURL installed on your PC.
+echo The downloaded ISO will be saved in the C:\Win11ISO folder.
+echo Downloading Windows11 23H2 ISO...
+echo.
+rem Check if download directory already exists
+if not exist "C:\Win11ISO\" (
+    md C:\Win11ISO > nul
+    echo Win11ISO directory created.
+    echo.
+)
+cd C:\Win11ISO
+echo WAIT PATIENTLY TILL THE PROCESS IS COMPLETED.
+echo ========================================================================================
+curl -o Win1123H2x64.iso "https://software.download.prss.microsoft.com/dbazure/Win11_23H2_English_x64.iso?t=aa722bb0-1d8c-41cd-b3b4-1d280a503a11&e=1700706867&h=3e65cd550d5a6748055cff36602037a8117b016f266c4c85d77d3017d4807c15"
+echo ========================================================================================
+echo.
+echo Downloading Windows11 23H2 ISO completed successfully.
+echo Press any key to go back to the main menu.
+pause > nul
+goto menu
+
 REM function for restarting the PC
 :restartProcess
 cls
@@ -480,8 +604,65 @@ echo Restarting your PC...
 pause
 shutdown /r /t 0
 
+REM function for restarting the PC in safe mode
+:safeModeProcessMenu
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Choose your preferred option:
+echo 1 - Restart in Safe Mode (minimal)
+echo 2 - Restart in Safe Mode with Networking
+echo 3 - Exit Safe Mode
+echo 4 - Return to the main menu
+echo.
+set /P "choice=Enter your choice: "
+if %choice%==1 goto safeModeProcess
+if %choice%==2 goto safeModeWithNetworkingProcess
+if %choice%==3 (
+    echo.
+    bcdedit /deletevalue {current} safeboot
+    echo Exiting Safe Mode...
+    timeout /t 2 > nul
+    goto menu
+)
+if %choice%==4 goto menu
+else (
+    echo Invalid choice. Please try again.
+    timeout /t 2 > nul
+    goto menu
+)
 
+REM function for restarting the PC in safe mode (minimal)
+:safeModeProcess
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script    
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Please save all your work before restarting your PC.
+echo.
+echo Restarting your PC in Safe Mode (minimal)...
+bcdedit /set {current} safeboot minimal
+pause
+shutdown /r /t 0
 
+REM function for restarting the PC in safe mode with networking
+:safeModeWithNetworkingProcess
+cls
+echo ========================================================================================
+echo             A Simple Windows 10/11 Utility Tool Written in Batch Script
+echo                                    Made by: Russel
+echo ========================================================================================
+echo.
+echo Please save all your work before restarting your PC.
+echo.
+echo Restarting your PC in Safe Mode with Networking...
+bcdedit /set {current} safeboot network
+pause
+shutdown /r /t 0
 
-
-
+REM Have a nice day!
